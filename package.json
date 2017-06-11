@@ -9,6 +9,12 @@
 	"author": "Matthias Buchholz <mb@averagejoe.de>",
 	"license": "ISC",
 	"scripts": {
+    "ng": "ngc",
+    "start": "ngc -p tsconfig-ngc.json serve",
+    "build": "ngc -p tsconfig-ngc.json build",
+    "test": "ngc -p tsconfig-ngc.json test",
+    "lint": "ngc -p tsconfig-ngc.json lint",
+    "e2e": "ngc -p tsconfig-ngc.json e2e",
 		"predoc": "rm -rf ./documentation",
 		"doc": "compodoc -p ./tsconfig.release.json -d ./documentation/",
 		"deploy:release": "rm -rf ./release; mv ./build release",
@@ -18,7 +24,6 @@
 		"version": "npm run release",
 		"postversion": "git push && git push --tags",
 		"prebuild:release": "rm -rf ./release",
-		"build": "npm run transpile",
 		"build:release": "NODE_ENV=production npm run build && npm run deploy:release",
 		"build:release:watch": "./scripts/watch.sh build:release"
 	},

@@ -1,9 +1,5 @@
 /aot
 
-*.map.js
-
-release/**/*.js
-
 *.metadata.json
 
 *.ngFactory.ts
@@ -11,3 +7,5 @@ release/**/*.js
 documentation
 
 docs
+release/**/*.js.*
+release/**/*.js
