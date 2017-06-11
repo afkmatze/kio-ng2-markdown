@@ -1,9 +1,10 @@
-import { Injectable, Component, ComponentRef, Inject, ViewContainerRef } from '@angular/core'
+import { Injectable, Component, ComponentRef, Inject, ViewContainerRef, ElementRef } from '@angular/core'
 
 import { drivers } from '../markdown'
 import { KioNg2MarkdownConfig, MARKDOWN_CONFIG, defaultConfig } from '../config'
 
 import { MarkdownRenderer, HTMLParser, HTMLNode } from '../renderer'
+import { isViewContainerRef, isHTMLNode, isElementRef } from '../renderer/types'
 
 @Injectable()
 export class KioNg2MarkdownService {
@@ -35,12 +36,21 @@ export class KioNg2MarkdownService {
     return root.childNodes
   }
 
-  renderToView <T extends Component>( source:string|HTMLNode, view:ViewContainerRef ):ComponentRef<T> {
+  renderToView <T extends Component>( source:string|HTMLNode, view:ViewContainerRef|ElementRef|HTMLElement ):Node {
     if ( 'string' === typeof source )
     {
       return this.renderToView<T>(this.renderHtml(source), view)
     }
-    return <ComponentRef<T>>this.markdownRenderer.render(source,view)
+    if ( isViewContainerRef(view) )
+    {
+      return this.renderToView ( source, view.element.nativeElement )
+    }
+    if ( isElementRef(view) )
+    {
+      return this.renderToView ( source, view.nativeElement )
+    }
+    view.appendChild(source.node)
+    return source.node
   }
 
 }
