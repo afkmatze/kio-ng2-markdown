@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/markdown/index.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,QAAQ,MAAM,oBAAoB,CAAA;AAI9C,cAAc,wBAAwB,CAAA;AACtC,cAAc,oBAAoB,CAAA;AAElC,MAAM,CAAC,IAAM,OAAO,GAAqB;IACvC,QAAQ,EAAE,QAAQ,CAAC,cAAc;CAClC,CAAA","file":"index.js","sourceRoot":""}
