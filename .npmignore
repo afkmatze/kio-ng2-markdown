@@ -4,7 +4,7 @@
 
 *.ngfactory.ts
 
-*.ts
+release/**/*.ts
 
 documentation
 
