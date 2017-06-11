@@ -1,6 +1,6 @@
 {
 	"name": "kio-ng2-markdown",
-	"version": "1.0.0",
+	"version": "0.0.0",
 	"description": "",
 	"module": "./src/module.ts",
 	"main": "./release/module.js",
@@ -9,7 +9,7 @@
 	"author": "Matthias Buchholz <mb@averagejoe.de>",
 	"license": "ISC",
 	"scripts": {
-		"pre:transpile": "rm -rf ./release",
+		"deploy:release": "rm -rf ./release; mv ./build release",
 		"transpile": "ngc -p tsconfig-ngc.json",
 		"test": "ts-mocha ./src/**/*.spec.ts",
 		"pretest": "npm run build",
@@ -23,7 +23,7 @@
 		"postversion": "git push && git push --tags",
 		"prebuild:release": "rm -rf ./release",
 		"build": "npm run transpile",
-		"build:release": "NODE_ENV=production npm run build",
+		"build:release": "NODE_ENV=production npm run build && npm run deploy:release",
 		"build:release:watch": "./scripts/watch.sh build:release",
 		"build:package": "NODE_ENV=package npm run build",
 		"build:ts": "tsc -p tsconfig.release.json",

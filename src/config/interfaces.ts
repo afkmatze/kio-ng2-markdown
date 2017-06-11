@@ -1,6 +1,12 @@
-import { MarkdownDriver } from '../driver'
+import { RendererOptions } from '../renderer'
 import * as showdown from 'showdown'
 
-export interface KioNg2MarkdownConfig {
+
+export interface ConverterConfig {
   extensions:string|string[]
+}
+
+export interface KioNg2MarkdownConfig {
+  converter:ConverterConfig
+  renderer:RendererOptions
 }
