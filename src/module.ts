@@ -21,28 +21,27 @@ import {
 } from './renderer'
 
 
-
+/**
+ * provider for module config
+ */
 export let ConfigProvider:Provider = {
   provide: MARKDOWN_CONFIG,
   useValue: defaultConfig  
 }
 
-/*export function DefaultComponentFactoryProviderFactory ( resolver:ComponentFactoryResolver ):ComponentFactory<MarkdownComponent> {
-  return resolver.resolveComponentFactory(MarkdownComponent)
-}
-
-export let DefaultComponentFactoryProvider:Provider = {
-  provide: DEFAULT_COMPONENT_FACTORY,
-  useFactory: DefaultComponentFactoryProviderFactory,
-  deps: [ ComponentFactoryResolver ]
-}
-
-*/
+/**
+ * provider for renderer config
+ */
 export let RendererOptionsProvider:Provider = {
   provide: RENDERER_CONFIG,
   useValue: defaultConfig.renderer
 }
 
+/**
+ * @brief      angular module for parsing markdown with showdown
+ *
+ * @return     angular module
+ */
 @NgModule({
   imports: [BrowserModule],
   declarations: [MarkdownComponent],
