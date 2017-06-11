@@ -6,5 +6,5 @@
  /* tslint:disable */
 
 
-export const styles:any[] = ['\n.footnote {\n  border: 1px solid black;\n}'];
+export const styles:any[] = ['\na + .footnote {\n  display: none;\n  background: red;\n  color: white;\n  \n  vertical-align: text-top;\n  line-height: 16px;\n  border: 2px solid red;\n  \n  a {\n    color: white;\n  }\n}\n\na:focus + .footnote {  \n  display: inline;\n}'];
 //# sourceMappingURL=data:application/json;base64,eyJmaWxlIjoiL1ZvbHVtZXMvTWFjaW50b3NoIEhEIDIvRGV2ZWxvcG1lbnQvUHJvamVjdHMvYWZrbS9raW8vcmVsZWFzZXMva2lvLW5nMi1tYXJrZG93bi9zcmMvY29tcG9uZW50cy9tYXJrZG93bi9tYXJrZG93bi5jb21wb25lbnQuc2Nzcy5uZ3N0eWxlLnRzIiwidmVyc2lvbiI6Mywic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsibmc6Ly8vVm9sdW1lcy9NYWNpbnRvc2ggSEQgMi9EZXZlbG9wbWVudC9Qcm9qZWN0cy9hZmttL2tpby9yZWxlYXNlcy9raW8tbmcyLW1hcmtkb3duL3NyYy9jb21wb25lbnRzL21hcmtkb3duL21hcmtkb3duLmNvbXBvbmVudC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyIgIl0sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7Ozs7In0=
