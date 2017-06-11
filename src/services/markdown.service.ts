@@ -3,44 +3,49 @@ import { Injectable, Component, ComponentRef, Inject, ViewContainerRef, ElementR
 import { drivers } from '../markdown'
 import { KioNg2MarkdownConfig, MARKDOWN_CONFIG, defaultConfig } from '../config'
 
-import { MarkdownRenderer, HTMLParser, HTMLNode } from '../renderer'
-import { isViewContainerRef, isHTMLNode, isElementRef } from '../renderer/types'
 
+export function isViewContainerRef ( other:any ):other is ViewContainerRef {
+  return ( 'element' in other && 'injector' in other )
+}
+
+export function isElementRef ( other:any ):other is ElementRef {
+  return ( 'nativeElement' in other )
+}
+
+/**
+ * Kio Markdown service 
+ */
 @Injectable()
 export class KioNg2MarkdownService {
 
-  constructor(@Inject(MARKDOWN_CONFIG) protected markdownConfig:KioNg2MarkdownConfig, protected markdownRenderer:MarkdownRenderer){}
+  constructor(@Inject(MARKDOWN_CONFIG) protected markdownConfig:KioNg2MarkdownConfig){}
 
-  private _wrapper=drivers.showdown(this.markdownConfig.converter)
+  private _wrapper=new drivers.showdown(this.markdownConfig.converter)
 
-  parseToHtmlNode ( source:string ):HTMLNode {
-    const parser = new HTMLParser(source)
-    return parser.parse()
-  }
-
+  /**
+   * renders markdown to html
+   *
+   * @param      source  markdown
+   *
+   * @return     html source; processed by showdown
+   */
   render ( source:string ):string {
-    return this.markdownToHtml (source)
-  }
-
-  renderHtml ( source:string ):HTMLNode {
-    return this.parseToHtmlNode ( this.render ( source ) )
-  }
-
-  markdownToHtml ( source:string ):string {
     return this._wrapper.renderHtml (source)
   }
 
-  protected createDom ( source:string ):NodeList {
-    const root = document.createElement('div')
-    root.innerHTML = source
-    return root.childNodes
-  }
-
-  renderToView <T extends Component>( source:string|HTMLNode, view:ViewContainerRef|ElementRef|HTMLElement ):Node {
-    if ( 'string' === typeof source )
+  /**
+   * renders markdown and injects it into a target view
+   *
+   * @param      source  markdown
+   * @param      view    target view
+   *
+   * @return     root node element of injected html
+   */
+  renderToView <T extends Component>( source:string, view:ViewContainerRef|ElementRef|HTMLElement ):Node {
+    /*if ( 'string' === typeof source )
     {
       return this.renderToView<T>(this.renderHtml(source), view)
-    }
+    }*/
     if ( isViewContainerRef(view) )
     {
       return this.renderToView ( source, view.element.nativeElement )
@@ -49,8 +54,8 @@ export class KioNg2MarkdownService {
     {
       return this.renderToView ( source, view.nativeElement )
     }
-    view.appendChild(source.node)
-    return source.node
+    view.innerHTML = this.render ( source )
+    return view
   }
 
 }

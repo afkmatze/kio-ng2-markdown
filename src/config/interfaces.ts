@@ -1,4 +1,3 @@
-import { RendererOptions } from '../renderer'
 import * as showdown from 'showdown'
 
 
@@ -8,5 +7,4 @@ export interface ConverterConfig {
 
 export interface KioNg2MarkdownConfig {
   converter:ConverterConfig
-  renderer:RendererOptions
 }

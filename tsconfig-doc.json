@@ -1,23 +1,24 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "es2015",
-    "moduleResolution": "node",
-    "sourceMap": true,
+    "baseUrl": "src",
+    "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["es2015", "dom"],
-    "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "outDir": "./build"
+    "lib": ["es6", "dom"],
+    "mapRoot": "./src",
+    "module": "es6",
+    "moduleResolution": "node",
+    "outDir": "./build",
+    "sourceMap": true,
+    "target": "es5",
+    "typeRoots": [
+        "../node_modules/@types"
+     ]
   },
-
-  "include": [
-    "src/**/*.ts"
-  ],
-
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "release",
+    "aot"
   ],
 
   "angularCompilerOptions": {

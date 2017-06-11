@@ -10,12 +10,9 @@ import * as import0 from '@angular/core';
 import * as import1 from '../../src/module';
 import * as import2 from '@angular/common';
 import * as import3 from '@angular/platform-browser';
-import * as import4 from '../../src/renderer/renderer.class';
+import * as import4 from '../../src/services/markdown.service';
 import * as import5 from './components/markdown/markdown.component.ngfactory';
-import * as import6 from '../../src/factory/component';
-import * as import7 from '../../src/config/inject.token';
-import * as import8 from '../../src/renderer/inject.token';
-import * as import9 from '../../src/factory/inject.token';
+import * as import6 from '../../src/config/inject.token';
 class KioNg2MarkdownModuleInjector extends import0.ɵNgModuleInjector<import1.KioNg2MarkdownModule> {
   _CommonModule_0:import2.CommonModule;
   _ErrorHandler_1:any;
@@ -45,9 +42,7 @@ class KioNg2MarkdownModuleInjector extends import0.ɵNgModuleInjector<import1.Ki
   __Meta_25:import3.Meta;
   __Title_26:import3.Title;
   _MARKDOWN_CONFIG_27:any;
-  _RENDERER_CONFIG_28:any;
-  __DEFAULT_COMPONENT_FACTORY_29:any;
-  __MarkdownRenderer_30:import4.MarkdownRenderer;
+  __KioNg2MarkdownService_28:import4.KioNg2MarkdownService;
   constructor(parent:import0.Injector) {
     super(parent,[import5.MarkdownComponentNgFactory],([] as any[]));
   }
@@ -128,13 +123,9 @@ class KioNg2MarkdownModuleInjector extends import0.ɵNgModuleInjector<import1.Ki
     if ((this.__Title_26 == null)) { (this.__Title_26 = new import3.Title(this.parent.get(import3.DOCUMENT))); }
     return this.__Title_26;
   }
-  get _DEFAULT_COMPONENT_FACTORY_29():any {
-    if ((this.__DEFAULT_COMPONENT_FACTORY_29 == null)) { (this.__DEFAULT_COMPONENT_FACTORY_29 = import6.DefaultComponentFactoryProviderFactory(this.componentFactoryResolver)); }
-    return this.__DEFAULT_COMPONENT_FACTORY_29;
-  }
-  get _MarkdownRenderer_30():import4.MarkdownRenderer {
-    if ((this.__MarkdownRenderer_30 == null)) { (this.__MarkdownRenderer_30 = new import4.MarkdownRenderer(this._RENDERER_CONFIG_28,this._DEFAULT_COMPONENT_FACTORY_29,this.componentFactoryResolver)); }
-    return this.__MarkdownRenderer_30;
+  get _KioNg2MarkdownService_28():import4.KioNg2MarkdownService {
+    if ((this.__KioNg2MarkdownService_28 == null)) { (this.__KioNg2MarkdownService_28 = new import4.KioNg2MarkdownService(this._MARKDOWN_CONFIG_27)); }
+    return this.__KioNg2MarkdownService_28;
   }
   createInternal():import1.KioNg2MarkdownModule {
     this._CommonModule_0 = new import2.CommonModule();
@@ -150,20 +141,7 @@ class KioNg2MarkdownModuleInjector extends import0.ɵNgModuleInjector<import1.Ki
     this._ApplicationModule_6 = new import0.ApplicationModule(this._ApplicationRef_5);
     this._BrowserModule_7 = new import3.BrowserModule(this.parent.get(import3.BrowserModule,(null as any)));
     this._KioNg2MarkdownModule_8 = new import1.KioNg2MarkdownModule();
-    this._MARKDOWN_CONFIG_27 = {
-      converter: {extensions: ([] as any[])},
-      renderer: {
-        targetType: 'view',
-        maps: ([] as any[])
-      }
-
-    }
-    ;
-    this._RENDERER_CONFIG_28 = {
-      targetType: 'view',
-      maps: ([] as any[])
-    }
-    ;
+    this._MARKDOWN_CONFIG_27 = {converter: {extensions: ([] as any[])}};
     return this._KioNg2MarkdownModule_8;
   }
   getInternal(token:any,notFoundResult:any):any {
@@ -194,10 +172,8 @@ class KioNg2MarkdownModuleInjector extends import0.ɵNgModuleInjector<import1.Ki
     if ((token === import0.Testability)) { return this._Testability_24; }
     if ((token === import3.Meta)) { return this._Meta_25; }
     if ((token === import3.Title)) { return this._Title_26; }
-    if ((token === import7.MARKDOWN_CONFIG)) { return this._MARKDOWN_CONFIG_27; }
-    if ((token === import8.RENDERER_CONFIG)) { return this._RENDERER_CONFIG_28; }
-    if ((token === import9.DEFAULT_COMPONENT_FACTORY)) { return this._DEFAULT_COMPONENT_FACTORY_29; }
-    if ((token === import4.MarkdownRenderer)) { return this._MarkdownRenderer_30; }
+    if ((token === import6.MARKDOWN_CONFIG)) { return this._MARKDOWN_CONFIG_27; }
+    if ((token === import4.KioNg2MarkdownService)) { return this._KioNg2MarkdownService_28; }
     return notFoundResult;
   }
   destroyInternal():void {
@@ -206,4 +182,4 @@ class KioNg2MarkdownModuleInjector extends import0.ɵNgModuleInjector<import1.Ki
   }
 }
 export const KioNg2MarkdownModuleNgFactory:import0.NgModuleFactory<import1.KioNg2MarkdownModule> = new import0.NgModuleFactory<any>(KioNg2MarkdownModuleInjector,import1.KioNg2MarkdownModule);
-//# sourceMappingURL=data:application/json;base64,eyJmaWxlIjoiL1ZvbHVtZXMvTWFjaW50b3NoIEhEIDIvRGV2ZWxvcG1lbnQvUHJvamVjdHMvYWZrbS9raW8vcmVsZWFzZXMva2lvLW5nMi1tYXJrZG93bi9zcmMvbW9kdWxlLm5nZmFjdG9yeS50cyIsInZlcnNpb24iOjMsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIm5nOi8vL1ZvbHVtZXMvTWFjaW50b3NoIEhEIDIvRGV2ZWxvcG1lbnQvUHJvamVjdHMvYWZrbS9raW8vcmVsZWFzZXMva2lvLW5nMi1tYXJrZG93bi9zcmMvbW9kdWxlLnRzIl0sInNvdXJjZXNDb250ZW50IjpbIiAiXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7In0=
+//# sourceMappingURL=data:application/json;base64,eyJmaWxlIjoiL1ZvbHVtZXMvTWFjaW50b3NoIEhEIDIvRGV2ZWxvcG1lbnQvUHJvamVjdHMvYWZrbS9raW8vcmVsZWFzZXMva2lvLW5nMi1tYXJrZG93bi9zcmMvbW9kdWxlLm5nZmFjdG9yeS50cyIsInZlcnNpb24iOjMsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIm5nOi8vL1ZvbHVtZXMvTWFjaW50b3NoIEhEIDIvRGV2ZWxvcG1lbnQvUHJvamVjdHMvYWZrbS9raW8vcmVsZWFzZXMva2lvLW5nMi1tYXJrZG93bi9zcmMvbW9kdWxlLnRzIl0sInNvdXJjZXNDb250ZW50IjpbIiAiXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7In0=

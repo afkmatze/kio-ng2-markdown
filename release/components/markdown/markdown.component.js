@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, Input, ViewContainerRef, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input, ViewContainerRef, ViewChild, ElementRef, ContentChildren, ViewEncapsulation } from '@angular/core';
 import { KioNg2MarkdownService } from '../../services/markdown.service';
 var MarkdownComponent = (function () {
     function MarkdownComponent(markdown, componentFactoryResolver) {
@@ -16,41 +16,12 @@ var MarkdownComponent = (function () {
         configurable: true
     });
     MarkdownComponent.prototype.renderHTML = function (source) {
-        if ('string' === typeof source) {
-            return this.renderHTML(this.markdown.renderHtml(source));
-        }
         var root = this.markdown.renderToView(source, this.contentView);
         if (!root) {
             console.log('no component used');
-            this.contentView.element.nativeElement.appendChild(source.node);
-            /*const component = this.createNodeComponent ( source )
-            console.log('component',component)
-      
-            let i = 0
-            let child
-            while( child = source.children[i++] ) {
-      
-            }*/
+            this.contentView.element.nativeElement.innerHTML = source;
         }
     };
-    /*
-      get defaultComponentFactory() {
-        return this.componentFactoryResolver.resolveComponentFactory(MarkdownComponent)
-      }
-    
-      createNodeComponent<T extends TargetViewComponent>(node:HTMLNode,componentFactory?:ComponentFactory<T>,idx?:number):ComponentRef<T|MarkdownComponent> {
-        if ( componentFactory )
-        {
-          return this.contentView.createComponent(componentFactory,idx)
-        }
-        
-        return this.createNodeComponent(node,this.defaultComponentFactory,idx)
-      }
-    
-      renderChildNode ( node:HTMLNode, component:ComponentRef<TargetViewComponent> ) {
-        const child = component.instance.createNodeComponent(node)
-    
-      }*/
     MarkdownComponent.prototype.ngOnInit = function () {
     };
     MarkdownComponent.prototype.ngOnDestroy = function () {
@@ -68,7 +39,8 @@ MarkdownComponent.decorators = [
     { type: Component, args: [{
                 templateUrl: './markdown.component.html',
                 styleUrls: ['./markdown.component.scss'],
-                selector: 'kio-markdown'
+                selector: 'kio-markdown',
+                encapsulation: ViewEncapsulation.None
             },] },
 ];
 /** @nocollapse */
@@ -79,5 +51,6 @@ MarkdownComponent.ctorParameters = function () { return [
 MarkdownComponent.propDecorators = {
     'source': [{ type: Input, args: ['source',] },],
     'contentView': [{ type: ViewChild, args: ['contentView', { read: ViewContainerRef },] },],
+    'footnoteAppendix': [{ type: ContentChildren, args: ['small', { read: ElementRef },] },],
 };
 //# sourceMappingURL=markdown.component.js.map
