@@ -6,5 +6,5 @@
  /* tslint:disable */
 
 
-export const styles:any[] = [''];
+export const styles:any[] = ['a[_ngcontent-%COMP%]    + small[_ngcontent-%COMP%] {\n  border: 1px solid black;\n}'];
 //# sourceMappingURL=data:application/json;base64,eyJmaWxlIjoiL1ZvbHVtZXMvTWFjaW50b3NoIEhEIDIvRGV2ZWxvcG1lbnQvUHJvamVjdHMvYWZrbS9raW8vcmVsZWFzZXMva2lvLW5nMi1tYXJrZG93bi9zcmMvY29tcG9uZW50cy9tYXJrZG93bi9tYXJrZG93bi5jb21wb25lbnQuc2Nzcy5zaGltLm5nc3R5bGUudHMiLCJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJuZzovLy9Wb2x1bWVzL01hY2ludG9zaCBIRCAyL0RldmVsb3BtZW50L1Byb2plY3RzL2Fma20va2lvL3JlbGVhc2VzL2tpby1uZzItbWFya2Rvd24vc3JjL2NvbXBvbmVudHMvbWFya2Rvd24vbWFya2Rvd24uY29tcG9uZW50LnRzIl0sInNvdXJjZXNDb250ZW50IjpbIiAiXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7OzsifQ==

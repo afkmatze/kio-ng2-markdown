@@ -1,36 +1,51 @@
 import { Injectable, Inject } from '@angular/core';
 import { drivers } from '../markdown';
 import { MARKDOWN_CONFIG } from '../config';
-import { MarkdownRenderer, HTMLParser } from '../renderer';
+export function isViewContainerRef(other) {
+    return ('element' in other && 'injector' in other);
+}
+export function isElementRef(other) {
+    return ('nativeElement' in other);
+}
+/**
+ * Kio Markdown service
+ */
 var KioNg2MarkdownService = (function () {
-    function KioNg2MarkdownService(markdownConfig, markdownRenderer) {
+    function KioNg2MarkdownService(markdownConfig) {
         this.markdownConfig = markdownConfig;
-        this.markdownRenderer = markdownRenderer;
-        this._wrapper = drivers.showdown(this.markdownConfig.converter);
+        this._wrapper = new drivers.showdown(this.markdownConfig.converter);
     }
-    KioNg2MarkdownService.prototype.parseToHtmlNode = function (source) {
-        var parser = new HTMLParser(source);
-        return parser.parse();
-    };
+    /**
+     * renders markdown to html
+     *
+     * @param      source  markdown
+     *
+     * @return     html source; processed by showdown
+     */
     KioNg2MarkdownService.prototype.render = function (source) {
-        return this.markdownToHtml(source);
-    };
-    KioNg2MarkdownService.prototype.renderHtml = function (source) {
-        return this.parseToHtmlNode(this.render(source));
-    };
-    KioNg2MarkdownService.prototype.markdownToHtml = function (source) {
         return this._wrapper.renderHtml(source);
     };
-    KioNg2MarkdownService.prototype.createDom = function (source) {
-        var root = document.createElement('div');
-        root.innerHTML = source;
-        return root.childNodes;
-    };
+    /**
+     * renders markdown and injects it into a target view
+     *
+     * @param      source  markdown
+     * @param      view    target view
+     *
+     * @return     root node element of injected html
+     */
     KioNg2MarkdownService.prototype.renderToView = function (source, view) {
-        if ('string' === typeof source) {
-            return this.renderToView(this.renderHtml(source), view);
+        /*if ( 'string' === typeof source )
+        {
+          return this.renderToView<T>(this.renderHtml(source), view)
+        }*/
+        if (isViewContainerRef(view)) {
+            return this.renderToView(source, view.element.nativeElement);
         }
-        return this.markdownRenderer.render(source, view);
+        if (isElementRef(view)) {
+            return this.renderToView(source, view.nativeElement);
+        }
+        view.innerHTML = this.render(source);
+        return view;
     };
     return KioNg2MarkdownService;
 }());
@@ -41,6 +56,5 @@ KioNg2MarkdownService.decorators = [
 /** @nocollapse */
 KioNg2MarkdownService.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: Inject, args: [MARKDOWN_CONFIG,] },] },
-    { type: MarkdownRenderer, },
 ]; };
 //# sourceMappingURL=markdown.service.js.map
