@@ -2,9 +2,9 @@
 	"name": "kio-ng2-markdown",
 	"version": "0.0.0",
 	"description": "",
-	"main": "./release/module.js",
-	"module": "./release/module.js",
-	"typings": "./release/module.d.ts",
+	"main": "./src/module.js",
+	"module": "./src/module.js",
+	"typings": "./src/module.d.ts",
 	"keywords": [],
 	"author": "Matthias Buchholz <mb@averagejoe.de>",
 	"license": "ISC",
@@ -23,7 +23,7 @@
 		"version": "npm run release",
 		"postversion": "git push && git push --tags",
 		"prebuild:release": "rm -rf ./release",
-		"build:release": "NODE_ENV=production npm run build && npm run deploy:release",
+		"build:release": "NODE_ENV=production npm run build",
 		"build:release:watch": "./scripts/watch.sh build:release"
 	},
 	"peerDependencies": {

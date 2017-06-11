@@ -1,3 +1,6 @@
 /aot
 
 *.ngfactory.ts
+
+*.js
+*.js.map
