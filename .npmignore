@@ -2,4 +2,8 @@
 
 *.ngFactory.ts
 
-*.ts
+/src
+
+documentation
+
+docs
