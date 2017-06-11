@@ -14,7 +14,7 @@
   },
 
   "files": [
-    "src/module.ts"
+    "build/module.ts"
   ],
 
   "angularCompilerOptions": {

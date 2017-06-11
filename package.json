@@ -22,8 +22,9 @@
 		"watch:test": "ts-mocha -w ./test/**/*.spec.ts",
 		"version": "npm run release",
 		"postversion": "git push && git push --tags",
-		"prebuild:release": "rm -rf ./release",
-		"build:release": "NODE_ENV=production npm run build",
+		"preprebuild:release": "rm -rf ./release",
+		"prebuild:release": "rm -rf ./build && scp -r ./src ./build",
+		"build:release": "NODE_ENV=production npm run build && npm run deploy:release",
 		"build:release:watch": "./scripts/watch.sh build:release"
 	},
 	"peerDependencies": {

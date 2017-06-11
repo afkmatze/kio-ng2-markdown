@@ -1,7 +1,10 @@
 /aot
 
-src/*.ngFactory.ts
-src/*.ts
+/src
+
+*.ngfactory.ts
+
+*.ts
 
 documentation
 
