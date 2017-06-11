@@ -1,2 +1,9 @@
+/aot
+
+*.metadata.json
+
+*.ngFactory.ts
+
 documentation
+
 docs
