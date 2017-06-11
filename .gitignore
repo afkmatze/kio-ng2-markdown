@@ -1,5 +1,9 @@
 /aot
 
+*.map.js
+
+release/**/*.js
+
 *.metadata.json
 
 *.ngFactory.ts
