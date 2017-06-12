@@ -1,10 +1,9 @@
-import * as showdown from 'showdown'
-
+import { ConverterExtensionArg, MarkdownDriverOptions } from '../markdown'
 
 export interface ConverterConfig {
-  extensions:string|string[]
+  extensions:ConverterExtensionArg|ConverterExtensionArg[]
 }
 
 export interface KioNg2MarkdownConfig {
-  converter:ConverterConfig
+  converter:MarkdownDriverOptions
 }

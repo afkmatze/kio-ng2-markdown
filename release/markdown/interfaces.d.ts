@@ -1,13 +1,16 @@
-import { TypeMap } from './types';
-export interface MarkdownDriverInterface {
+import { ExtensionProvider } from 'kio-ng2-markdown-extension';
+export declare type ConverterExtensionArg = string | ExtensionProvider;
+export interface MarkdownDriverInterface<T extends ConverterExtensionArg> {
     readonly options?: MarkdownDriverOptions;
     renderHtml(source: string): string;
 }
 export interface MarkdownDriverOptions {
-    [key: string]: any;
+    extensions: ConverterExtensionArg | ConverterExtensionArg[];
 }
-export interface MarkdownDriverClass {
-    new (options?: MarkdownDriverOptions): MarkdownDriverInterface;
+export interface MarkdownDriverClass<T extends ConverterExtensionArg> {
+    new (options?: MarkdownDriverOptions): MarkdownDriverInterface<T>;
 }
-export interface MarkdownDriverMap extends TypeMap<MarkdownDriverClass> {
+export interface MarkdownDriverMap {
+    [key: string]: MarkdownDriverClass<ConverterExtensionArg>;
 }
+export { ExtensionProvider };

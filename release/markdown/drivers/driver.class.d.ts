@@ -1,7 +1,9 @@
-import { MarkdownDriverInterface, MarkdownDriverOptions } from '../interfaces';
-export declare abstract class MarkdownDriver implements MarkdownDriverInterface {
+import { MarkdownDriverInterface, MarkdownDriverOptions, ConverterExtensionArg, ExtensionProvider } from '../interfaces';
+export declare abstract class MarkdownDriver implements MarkdownDriverInterface<ExtensionProvider> {
     readonly options: MarkdownDriverOptions;
     constructor(options?: MarkdownDriverOptions);
+    protected abstract applyExtension(extension: ConverterExtensionArg): void;
+    protected abstract setupConverter(): void;
     /**
      * reads markdown source and returns html source
      *

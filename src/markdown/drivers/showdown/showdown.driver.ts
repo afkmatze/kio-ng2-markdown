@@ -1,44 +1,66 @@
 import * as showdown from 'showdown'
 import { ShowdownDriverOptions } from './interfaces'
-import { MarkdownDriverInterface, MarkdownDriverClass } from '../../interfaces'
+import { MarkdownDriverInterface, MarkdownDriverClass, MarkdownDriverOptions, ConverterExtensionArg } from '../../interfaces'
 import { MarkdownDriver } from '../driver.class'
+import { 
+  Extension, ExtensionImplementation, ExtensionType, ExtensionTypeByName, ExtensionTypes, ExtensionTypeNames, LangExtension, OutputExtension,
+  FormattingExtension, MatchingExtension, ExtensionProvider,
+  isMatchingExtension, isFormattingExtension, isExtensionImplementation,
+  isExtensionProvider, isExtensionKey, nameOfType
+} from 'kio-ng2-markdown-extension'
 
-/**
- * Markdown driver implementation for showdown
- *
- * @param      options  showdown config
- *
- * @return     markdown driver interface
- */
-export function Driver (options:ShowdownDriverOptions):MarkdownDriverInterface {
-
-  if ( !Array.isArray(options.extensions) )
-  {
-    options.extensions = [options.extensions]
-  }
-  const _converter = new showdown.Converter(options)
-
-  return {
-    renderHtml: ( source:string ) => {
-      return _converter.makeHtml(source)
-    }
-  }
-
+export function isTypeName<T extends ExtensionTypeNames> ( other:any ):other is T {
+  return ( other in ExtensionTypeByName )
 }
 
-/**
- * maps options to be compatible with showdown converter options
- *
- * @param      options  The options
- *
- * @return     showdown converter options
- */
-export const parseOptions = ( options:ShowdownDriverOptions ):ShowdownDriverOptions => {
-  if ( !Array.isArray(options.extensions) )
+export const typeName = <T extends ExtensionTypes, K extends ExtensionTypeNames> ( type:T ):K => {
+  return isTypeName ( name ) ? name : undefined
+}
+
+export const filterExtensionImplementation = <T extends ExtensionTypes, K extends ConverterExtensionArg|string>( extensions:K|K[] ):ExtensionProvider[] => {
+  if ( !Array.isArray(extensions) )
   {
-    options.extensions = [options.extensions]
+    return filterExtensionImplementation([extensions])
   }
-  return options
+  const providers:ExtensionProvider[] = []
+  extensions.forEach ( extension => {
+    if ( isExtensionProvider(extension) )
+    {
+      providers.push ( extension )
+    }
+  } )
+  return providers
+}
+
+
+export const filterExtensionKeys = <T extends ExtensionTypes>( extensions:ConverterExtensionArg|ConverterExtensionArg[] ):string[] => {
+  if ( !Array.isArray(extensions) )
+  {
+    return filterExtensionKeys([extensions])
+  }
+  const extImplementations:string[] = []
+  extensions.forEach ( extension => {
+    if ( 'string' === typeof extension )
+    {
+      extImplementations.push ( <string>extension )
+    }
+  } )
+  return extImplementations
+}
+
+export function convertExtension <T extends ExtensionTypes>( extension:FormattingExtension<T> ):showdown.ShowdownExtension 
+export function convertExtension <T extends ExtensionTypes>( extension:MatchingExtension<T> ):showdown.ShowdownExtension 
+export function convertExtension <T extends ExtensionTypes>( extension:MatchingExtension<T>|FormattingExtension<T> ):showdown.ShowdownExtension 
+{
+  const {
+    type,
+    ...extensionImplementation
+  } = extension
+  const tName:ExtensionTypeNames = nameOfType(type)
+  return {
+    type: tName,
+    ...extensionImplementation
+  }
 }
 
 /**
@@ -46,12 +68,46 @@ export const parseOptions = ( options:ShowdownDriverOptions ):ShowdownDriverOpti
  */
 export class ShowdownDriver extends MarkdownDriver {
 
-  constructor(readonly options:ShowdownDriverOptions){
-    super()
-    this.options = parseOptions(options)
+  constructor(readonly options:MarkdownDriverOptions){
+    super(options)
   }
 
-  protected converter=new showdown.Converter(this.options)
+  protected applyExtension ( extension:ConverterExtensionArg ) {
+    if ( 'string' === typeof extension )
+    {
+      return this.converter.useExtension(extension)
+    }
+    if ( isExtensionProvider(extension) )      
+    {
+      const name = extension.name
+      const extensionArgs =  extension()
+      extensionArgs.forEach ( extensionArg => {
+        if ( isFormattingExtension(extensionArg) )
+        {
+          this.converter.addExtension(convertExtension(extensionArg),extension.name)  
+        }
+        if ( isMatchingExtension(extensionArg) )
+        {
+          this.converter.addExtension(convertExtension(extensionArg),extension.name)  
+        }
+      } )
+      
+    }
+  }
+
+  protected setupConverter () {
+    const keys = filterExtensionKeys(this.options.extensions)
+    this.converter = new showdown.Converter({extensions: keys})
+    const providers = filterExtensionImplementation(this.options.extensions)
+    providers.forEach ( provider => {
+      this.applyExtension(provider)
+    } )
+  }
+
+  private extensions:showdown.ShowdownExtension[]
+  private extensionKeys:string[]
+
+  protected converter:showdown.Converter
 
   renderHtml( source:string ) {
     return this.converter.makeHtml(source)

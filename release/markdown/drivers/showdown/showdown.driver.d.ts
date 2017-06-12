@@ -1,30 +1,24 @@
 /// <reference types="showdown" />
 import * as showdown from 'showdown';
-import { ShowdownDriverOptions } from './interfaces';
-import { MarkdownDriverInterface } from '../../interfaces';
+import { MarkdownDriverOptions, ConverterExtensionArg } from '../../interfaces';
 import { MarkdownDriver } from '../driver.class';
-/**
- * Markdown driver implementation for showdown
- *
- * @param      options  showdown config
- *
- * @return     markdown driver interface
- */
-export declare function Driver(options: ShowdownDriverOptions): MarkdownDriverInterface;
-/**
- * maps options to be compatible with showdown converter options
- *
- * @param      options  The options
- *
- * @return     showdown converter options
- */
-export declare const parseOptions: (options: ShowdownDriverOptions) => ShowdownDriverOptions;
+import { ExtensionTypes, ExtensionTypeNames, FormattingExtension, MatchingExtension, ExtensionProvider } from 'kio-ng2-markdown-extension';
+export declare function isTypeName<T extends ExtensionTypeNames>(other: any): other is T;
+export declare const typeName: <T extends ExtensionTypes, K extends "output" | "lang">(type: T) => K;
+export declare const filterExtensionImplementation: <T extends ExtensionTypes, K extends ConverterExtensionArg>(extensions: K | K[]) => ExtensionProvider[];
+export declare const filterExtensionKeys: <T extends ExtensionTypes>(extensions: string | ExtensionProvider | ConverterExtensionArg[]) => string[];
+export declare function convertExtension<T extends ExtensionTypes>(extension: FormattingExtension<T>): showdown.ShowdownExtension;
+export declare function convertExtension<T extends ExtensionTypes>(extension: MatchingExtension<T>): showdown.ShowdownExtension;
 /**
  * markdown driver using showdown
  */
 export declare class ShowdownDriver extends MarkdownDriver {
-    readonly options: ShowdownDriverOptions;
-    constructor(options: ShowdownDriverOptions);
+    readonly options: MarkdownDriverOptions;
+    constructor(options: MarkdownDriverOptions);
+    protected applyExtension(extension: ConverterExtensionArg): void;
+    protected setupConverter(): void;
+    private extensions;
+    private extensionKeys;
     protected converter: showdown.Converter;
     renderHtml(source: string): string;
 }
