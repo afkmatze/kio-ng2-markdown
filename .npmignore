@@ -4,8 +4,6 @@
 
 *.ngfactory.ts
 
-release/**/*.ts
-
 documentation
 
 docs
