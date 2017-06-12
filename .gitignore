@@ -1,2 +1,4 @@
-documentation
-build
+/aot
+
+release/**/*.ngfactory.ts
+node_modules

@@ -16,7 +16,7 @@ Implemented parser is [showdown](https://github.com/showdownjs/showdown)
 
 in digitorial project
 
-`$ npm install git@github.com:afkmatze/kio-ng2.git --save`
+`$ npm install git@github.com:afkmatze/kio-ng2-markdown.git --save`
 
 ### app.module.ts
 
