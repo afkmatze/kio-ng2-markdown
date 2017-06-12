@@ -9,10 +9,26 @@ import {
 import { KioNg2MarkdownService } from '../../services/markdown.service'
 
 @Component({
-  templateUrl: './markdown.component.html',
-  styleUrls: [ './markdown.component.scss' ],
+  template: '<div #contentView></div>',
+  styles: [ `a + .footnote {
+  display: none;
+  background: red;
+  color: white;
+  
+  vertical-align: text-top;
+  line-height: 16px;
+  border: 2px solid red;
+  
+  a {
+    color: white;
+  }
+}
+
+a:focus + .footnote {  
+  display: inline;
+}` ],
   selector: 'kio-markdown',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.Native
 })
 export class MarkdownComponent implements OnInit, OnDestroy, OnChanges {
 
@@ -21,8 +37,6 @@ export class MarkdownComponent implements OnInit, OnDestroy, OnChanges {
   @Input('source') source:string|NodeList
 
   @ViewChild('contentView',{read: ViewContainerRef}) contentView:ViewContainerRef
-
-  @ContentChildren('small',{read: ElementRef})  footnoteAppendix: QueryList<ElementRef>
   
   get innerHTML():string {
     return this.contentView.element.nativeElement.innerHTML

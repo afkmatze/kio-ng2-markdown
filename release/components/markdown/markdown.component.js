@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, Input, ViewContainerRef, ViewChild, ElementRef, ContentChildren, ViewEncapsulation } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input, ViewContainerRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { KioNg2MarkdownService } from '../../services/markdown.service';
 var MarkdownComponent = (function () {
     function MarkdownComponent(markdown, componentFactoryResolver) {
@@ -37,10 +37,10 @@ var MarkdownComponent = (function () {
 export { MarkdownComponent };
 MarkdownComponent.decorators = [
     { type: Component, args: [{
-                templateUrl: './markdown.component.html',
-                styleUrls: ['./markdown.component.scss'],
+                template: '<div #contentView></div>',
+                styles: ["a + .footnote {\n  display: none;\n  background: red;\n  color: white;\n  \n  vertical-align: text-top;\n  line-height: 16px;\n  border: 2px solid red;\n  \n  a {\n    color: white;\n  }\n}\n\na:focus + .footnote {  \n  display: inline;\n}"],
                 selector: 'kio-markdown',
-                encapsulation: ViewEncapsulation.None
+                encapsulation: ViewEncapsulation.Native
             },] },
 ];
 /** @nocollapse */
@@ -51,6 +51,5 @@ MarkdownComponent.ctorParameters = function () { return [
 MarkdownComponent.propDecorators = {
     'source': [{ type: Input, args: ['source',] },],
     'contentView': [{ type: ViewChild, args: ['contentView', { read: ViewContainerRef },] },],
-    'footnoteAppendix': [{ type: ContentChildren, args: ['small', { read: ElementRef },] },],
 };
 //# sourceMappingURL=markdown.component.js.map

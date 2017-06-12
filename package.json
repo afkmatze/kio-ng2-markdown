@@ -11,7 +11,9 @@
 	"scripts": {
 		"ng": "ngc",
 		"start": "ngc -p tsconfig-ngc.json serve",
-		"build": "./scripts/ngModule.sh build",
+		"ngModule:build": "./scripts/ngModule.sh build",
+		"ngModule:copy": "echo ./scripts/ngModule.sh copy $DEV_LATEST",
+		"build": "npm run ngModule:build && npm run ngModule:copy",
 		"test": "ngc -p tsconfig-ngc.json test",
 		"lint": "tslint ./src/**/*.ts ./test/**/*.ts",
 		"e2e": "ngc -p tsconfig-ngc.json e2e",
