@@ -30,7 +30,7 @@ a:focus + .footnote {
   display: inline;
 }` ],
   selector: 'kio-markdown',
-  encapsulation: ViewEncapsulation.Native
+  encapsulation: ViewEncapsulation.None
 })
 export class MarkdownComponent implements OnInit, OnDestroy, OnChanges {
 

@@ -30,7 +30,8 @@ export let ConfigProvider:Provider = {
   declarations: [MarkdownComponent],
   providers: [ ConfigProvider, KioNg2MarkdownService ],
   entryComponents: [MarkdownComponent],
-  exports: [MarkdownComponent]
+  exports: [MarkdownComponent],
+  bootstrap: [MarkdownComponent]
 })
 export class KioNg2MarkdownModule {
   static forRoot( config:KioNg2MarkdownConfig ):ModuleWithProviders {

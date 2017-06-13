@@ -40,7 +40,8 @@ KioNg2MarkdownModule.decorators = [
                 declarations: [MarkdownComponent],
                 providers: [ConfigProvider, KioNg2MarkdownService],
                 entryComponents: [MarkdownComponent],
-                exports: [MarkdownComponent]
+                exports: [MarkdownComponent],
+                bootstrap: [MarkdownComponent]
             },] },
 ];
 /** @nocollapse */

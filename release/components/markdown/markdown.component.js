@@ -45,7 +45,7 @@ MarkdownComponent.decorators = [
                 template: '<div #contentView></div>',
                 styles: ["a + .footnote {\n  display: none;\n  background: red;\n  color: white;\n  \n  vertical-align: text-top;\n  line-height: 16px;\n  border: 2px solid red;\n  \n  a {\n    color: white;\n  }\n}\n\na:focus + .footnote {  \n  display: inline;\n}"],
                 selector: 'kio-markdown',
-                encapsulation: ViewEncapsulation.Native
+                encapsulation: ViewEncapsulation.None
             },] },
 ];
 /** @nocollapse */
