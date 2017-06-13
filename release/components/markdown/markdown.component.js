@@ -1,9 +1,10 @@
-import { Component, ComponentFactoryResolver, Input, ViewContainerRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input, ViewContainerRef, ViewChild, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { KioNg2MarkdownService } from '../../services/markdown.service';
 var MarkdownComponent = (function () {
     function MarkdownComponent(markdown, componentFactoryResolver) {
         this.markdown = markdown;
         this.componentFactoryResolver = componentFactoryResolver;
+        this.rendered = new EventEmitter();
     }
     Object.defineProperty(MarkdownComponent.prototype, "innerHTML", {
         get: function () {
@@ -21,13 +22,17 @@ var MarkdownComponent = (function () {
             console.log('no component used');
             this.contentView.element.nativeElement.innerHTML = source;
         }
+        this.rendered.emit({
+            targetElement: this.contentView.element,
+            source: source
+        });
     };
     MarkdownComponent.prototype.ngOnInit = function () {
     };
     MarkdownComponent.prototype.ngOnDestroy = function () {
     };
     MarkdownComponent.prototype.ngOnChanges = function (changes) {
-        console.log('MarkdownComponent::changes::', Object.keys(changes));
+        //console.log('MarkdownComponent::changes::',Object.keys(changes))
         if ('source' in changes) {
             this.renderHTML(changes.source.currentValue);
         }
@@ -49,6 +54,7 @@ MarkdownComponent.ctorParameters = function () { return [
     { type: ComponentFactoryResolver, },
 ]; };
 MarkdownComponent.propDecorators = {
+    'rendered': [{ type: Output, args: ['rendered',] },],
     'source': [{ type: Input, args: ['source',] },],
     'contentView': [{ type: ViewChild, args: ['contentView', { read: ViewContainerRef },] },],
 };

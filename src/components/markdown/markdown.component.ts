@@ -1,12 +1,14 @@
 import { 
   Component, ComponentRef, ComponentFactory, ComponentFactoryResolver, 
   Input, ViewContainerRef, ViewChild, ViewChildren, ElementRef, 
+  Output, EventEmitter,
   ContentChildren,
   Query, QueryList,
   OnChanges, OnInit, OnDestroy, SimpleChanges ,
   ViewEncapsulation
 } from '@angular/core'
 import { KioNg2MarkdownService } from '../../services/markdown.service'
+import { ComponentEvent } from './interfaces'
 
 @Component({
   template: '<div #contentView></div>',
@@ -34,6 +36,8 @@ export class MarkdownComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(protected markdown:KioNg2MarkdownService,protected componentFactoryResolver:ComponentFactoryResolver){}
 
+  @Output('rendered') rendered:EventEmitter<ComponentEvent>=new EventEmitter<ComponentEvent>()
+
   @Input('source') source:string|NodeList
 
   @ViewChild('contentView',{read: ViewContainerRef}) contentView:ViewContainerRef
@@ -53,6 +57,10 @@ export class MarkdownComponent implements OnInit, OnDestroy, OnChanges {
       console.log('no component used')
       this.contentView.element.nativeElement.innerHTML = source
     }
+    this.rendered.emit({
+      targetElement: this.contentView.element,
+      source 
+    })
   }
 
   ngOnInit(){
@@ -64,7 +72,7 @@ export class MarkdownComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes:SimpleChanges){
-    console.log('MarkdownComponent::changes::',Object.keys(changes))
+    //console.log('MarkdownComponent::changes::',Object.keys(changes))
     if ( 'source' in changes )
     {
       this.renderHTML ( changes.source.currentValue )
