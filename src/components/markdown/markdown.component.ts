@@ -36,7 +36,7 @@ export class MarkdownComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(protected markdown:KioNg2MarkdownService,protected componentFactoryResolver:ComponentFactoryResolver){}
 
-  @Output('rendered') rendered:EventEmitter<ComponentEvent>=new EventEmitter<ComponentEvent>()
+  @Output() rendered:EventEmitter<ComponentEvent>=new EventEmitter<ComponentEvent>()
 
   @Input('source') source:string|NodeList
 

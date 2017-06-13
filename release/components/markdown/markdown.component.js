@@ -54,7 +54,7 @@ MarkdownComponent.ctorParameters = function () { return [
     { type: ComponentFactoryResolver, },
 ]; };
 MarkdownComponent.propDecorators = {
-    'rendered': [{ type: Output, args: ['rendered',] },],
+    'rendered': [{ type: Output },],
     'source': [{ type: Input, args: ['source',] },],
     'contentView': [{ type: ViewChild, args: ['contentView', { read: ViewContainerRef },] },],
 };
