@@ -12,23 +12,7 @@ import { ComponentEvent } from './interfaces'
 
 @Component({
   template: '<div #contentView></div>',
-  styles: [ `a + .footnote {
-  display: none;
-  background: red;
-  color: white;
-  
-  vertical-align: text-top;
-  line-height: 16px;
-  border: 2px solid red;
-  
-  a {
-    color: white;
-  }
-}
-
-a:focus + .footnote {  
-  display: inline;
-}` ],
+  styles: [ '' ],
   selector: 'kio-markdown',
   encapsulation: ViewEncapsulation.None
 })
