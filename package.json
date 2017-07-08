@@ -1,6 +1,6 @@
 {
 	"name": "kio-ng2-markdown",
-	"version": "0.0.0",
+	"version": "0.0.3",
 	"description": "",
 	"main": "./release/module.js",
 	"module": "./release/module.js",
@@ -22,8 +22,6 @@
 		"deploy:release": "./scripts/copy_release.sh",
 		"transpile": "ngc -p tsconfig-ngc.json",
 		"watch:test": "ts-mocha -w ./test/**/*.spec.ts",
-		"version": "npm run release",
-		"postversion": "git push && git push --tags",
 		"build:release": "NODE_ENV=production npm run build",
 		"build:release:watch": "./scripts/watch.sh build:release"
 	},
